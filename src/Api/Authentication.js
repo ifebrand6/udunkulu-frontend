@@ -14,7 +14,7 @@ const registerDetailsToServer =(email,lastName,password,firstName,stageName,role
         firstName,
         stageName,
         role,
-    });
+    }); 
 }
 
 
