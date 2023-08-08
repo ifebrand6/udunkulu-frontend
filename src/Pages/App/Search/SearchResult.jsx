@@ -1,7 +1,14 @@
 import React from "react";
 import "./Result.css";
+import { Artist1, Artist2 } from "../../../Assets/Artist";
+import { Trend1 } from "../../../Assets/Trending";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { loadNewSongs } from "../../../store/searchSlice";
+import SongCard from "../../../Components/SongCard/SongCard";
 
-export function SearchResult() {
+const SearchResult = ({ albums, artists, songs, loadNewSongs }) => {
   return (
     <div className="top-align">
       {/* Fixed menu bar */}
@@ -18,7 +25,7 @@ export function SearchResult() {
               aria-controls="One"
               aria-selected="true"
             >
-              Songs
+              Songs<span className="text-muted lead">({songs.length})</span>
             </a>
           </li>
           <li class="nav-item pl-0">
@@ -31,7 +38,7 @@ export function SearchResult() {
               aria-controls="Two"
               aria-selected="false"
             >
-              Albums
+              Artist<span className="text-muted lead">({artists.length})</span>
             </a>
           </li>
           <li class="nav-item pl-0">
@@ -44,7 +51,7 @@ export function SearchResult() {
               aria-controls="Three"
               aria-selected="false"
             >
-              Artist
+              Albums<span className="text-muted lead">({albums.length})</span>
             </a>
           </li>
         </ul>
@@ -59,125 +66,17 @@ export function SearchResult() {
         >
           <div className="row pt-3 m-0">
             {/* TODO import cards and pass props */}
-            <div className="item">
-              <div class="card shadow-sm border-0 rounded genCard">
-                <div class="card-body p-0">
-                  <img
-                    src="https://res.cloudinary.com/mhmd/image/upload/v1570799922/profile-1_dewapk.jpg"
-                    alt=""
-                    class="w-100 card-img-top cardImage"
-                  />
-                  <div class="songInnerText">
-                    <span class="songName">Fem</span>
-                    <span class="text-muted songCountDetails">
-                      Davido: 9.7K plays
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="item">
-              <div class="card shadow-sm border-0 rounded genCard">
-                <div class="card-body p-0">
-                  <img
-                    src="https://res.cloudinary.com/mhmd/image/upload/v1570799922/profile-1_dewapk.jpg"
-                    alt=""
-                    class="w-100 card-img-top cardImage"
-                  />
-                  <div class="songInnerText">
-                    <span class="songName">Fem</span>
-                    <span class="text-muted songCountDetails">
-                      Davido: 9.7K plays
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="item">
-              <div class="card shadow-sm border-0 rounded genCard">
-                <div class="card-body p-0">
-                  <img
-                    src="https://res.cloudinary.com/mhmd/image/upload/v1570799922/profile-1_dewapk.jpg"
-                    alt=""
-                    class="w-100 card-img-top cardImage"
-                  />
-                  <div class="songInnerText">
-                    <span class="songName">Fem</span>
-                    <span class="text-muted songCountDetails">
-                      Davido: 9.7K plays
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="item">
-              <div class="card shadow-sm border-0 rounded genCard">
-                <div class="card-body p-0">
-                  <img
-                    src="https://res.cloudinary.com/mhmd/image/upload/v1570799922/profile-1_dewapk.jpg"
-                    alt=""
-                    class="w-100 card-img-top cardImage"
-                  />
-                  <div class="songInnerText">
-                    <span class="songName">Fem</span>
-                    <span class="text-muted songCountDetails">
-                      Davido: 9.7K plays
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="item">
-              <div class="card shadow-sm border-0 rounded genCard">
-                <div class="card-body p-0">
-                  <img
-                    src="https://res.cloudinary.com/mhmd/image/upload/v1570799922/profile-1_dewapk.jpg"
-                    alt=""
-                    class="w-100 card-img-top cardImage"
-                  />
-                  <div class="songInnerText">
-                    <span class="songName">Fem</span>
-                    <span class="text-muted songCountDetails">
-                      Davido: 9.7K plays
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="item">
-              <div class="card shadow-sm border-0 rounded genCard">
-                <div class="card-body p-0">
-                  <img
-                    src="https://res.cloudinary.com/mhmd/image/upload/v1570799922/profile-1_dewapk.jpg"
-                    alt=""
-                    class="w-100 card-img-top cardImage"
-                  />
-                  <div class="songInnerText">
-                    <span class="songName">Fem</span>
-                    <span class="text-muted songCountDetails">
-                      Davido: 9.7K plays
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="item">
-              <div class="card shadow-sm border-0 rounded genCard">
-                <div class="card-body p-0">
-                  <img
-                    src="https://res.cloudinary.com/mhmd/image/upload/v1570799922/profile-1_dewapk.jpg"
-                    alt=""
-                    class="w-100 card-img-top cardImage"
-                  />
-                  <div class="songInnerText">
-                    <span class="songName">Fem</span>
-                    <span class="text-muted songCountDetails">
-                      Davido: 9.7K plays
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {songs &&
+              songs.length > 0 &&
+              songs.map((song) => (
+                <SongCard
+                  loadNewSongs={loadNewSongs}
+                  song={song}
+                  songs={songs}
+                  key={song._id}
+                  image={Trend1}
+                />
+              ))}
           </div>
         </div>
 
@@ -187,14 +86,28 @@ export function SearchResult() {
           role="tabpanel"
           aria-labelledby="two-tab"
         >
-          <h5 class="card-title">Tab Card Two</h5>
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <a href="#" class="btn btn-primary">
-            Go somewhere
-          </a>
+          <div>
+            <div className="row pt-3 m-0">
+              {artists &&
+                artists.length > 0 &&
+                artists.map((artist) => (
+                  <Link to="/now-playing" className="item">
+                    <div class="card shadow-sm border-0 rounded genCard">
+                      <div class="card-body p-0">
+                        <img
+                          src={artist.image}
+                          alt=""
+                          class="w-100 card-img-top cardImage"
+                        />
+                        <div class=" albumInnerText">
+                          <span class="songName">{artist.name}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+            </div>
+          </div>
         </div>
 
         <div
@@ -203,16 +116,43 @@ export function SearchResult() {
           role="tabpanel"
           aria-labelledby="three-tab"
         >
-          <h5 class="card-title">Tab Card Three</h5>
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <a href="#" class="btn btn-primary">
-            Go somewhere
-          </a>
+          <div>
+            <div className="row pt-3 m-0">
+              {albums &&
+                albums.length > 0 &&
+                albums.map((album) => (
+                  <Link to="/now-playing" className="item">
+                    <div class="card shadow-sm border-0 rounded genCard">
+                      <div class="card-body p-0">
+                        <img
+                          src={Artist2}
+                          alt=""
+                          class="w-100 card-img-top cardImage"
+                        />
+                        <div class=" albumInnerText">
+                          <span class="songName">{album.title}</span>
+                          <span class="text-muted songCountDetails">
+                            Davido
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
+SearchResult.propTypes = {
+  loadNewSongs: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  songList: state.app.searchResults.nowPlayingList,
+});
+export default connect(mapStateToProps, {
+  loadNewSongs,
+})(SearchResult);

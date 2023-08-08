@@ -2,7 +2,7 @@ import "./NavBar.css";
 import { Button } from "../../Components";
 import { NavLink } from "react-router-dom";
 import { Authentication } from "../../Pages";
-import { Search } from "../Search/Search";
+import Search from "../Search/Search";
 
 const NavBar = (props) => {
   const isLoggedIn =localStorage.getItem("token");
